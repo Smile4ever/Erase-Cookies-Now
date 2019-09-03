@@ -4,7 +4,7 @@
   "homepage_url": "https://github.com/Smile4ever/Erase-Cookies-Now",
   "author": "Geoffrey De Belie",
   "name": "Erase Cookies Now",
-  "version": "0.1",
+  "version": "0.1.0",
   "default_locale": "en",
   "permissions": ["cookies","<all_urls>", "activeTab", "storage", "browsingData", "contextualIdentities", "privacy"],
   "browser_action": {
