@@ -11,7 +11,7 @@
     "browser_style": false,
     "default_title": "__MSG_buttonTitle__",
     "default_icon": {
-      "96": "icons/icon70.png"
+      "70": "icons/icon70.png"
     }
   },
   "applications": {
@@ -21,7 +21,7 @@
 		}
 	},
   "icons": {
-    "96": "icons/icon70.png"
+    "70": "icons/icon70.png"
   },
   "background": {
     "scripts": ["background.js"]
