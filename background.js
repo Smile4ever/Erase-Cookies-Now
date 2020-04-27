@@ -2,35 +2,75 @@
 // https://ccsearch.creativecommons.org/photos/de53a802-3342-4886-881d-59cb7f50d0eb
 // https://www.flickr.com/photos/89978190@N00/3151598538
 
-// Events
-browser.browserAction.onClicked.addListener(async (tab) => {
-	await deleteCookies(tab);
-	await browser.tabs.reload();
-	// Page was reloaded
-});
+// Init
+let browserName = "NonFirefox"; // Default value
+
+// browser.runtime.getBrowserInfo() is not available
+// https://github.com/mozilla/webextension-polyfill/issues/116
+
+async function init(){
+	// Get the browserName (likely will only work in case it's Firefox)
+	if(browser.runtime.getBrowserInfo !== undefined){
+		let info = await browser.runtime.getBrowserInfo();
+		browserName = info.name;
+	}
+	
+	// Events
+	browser.browserAction.onClicked.addListener(async (tab) => {
+		await deleteCookies(tab);
+		await browser.tabs.reload();
+		// Page was reloaded
+	});
+}
+
+init();
 
 // Functionality
-async function deleteCookies(tab){
-	let cookies = await browser.cookies.getAll({
-		url: tab.url,
-		storeId: tab.cookieStoreId,
-		firstPartyDomain: null
-	});
+async function deleteCookies(tab){	
+	let cookies = await browser.cookies.getAll(
+		getCookieQueryAll(tab)
+	);
 
 	let promises = cookies.map(cookie =>
-		browser.cookies.remove({
-			url: getCookieUrl(cookie),
-			name: cookie.name,
-			storeId: cookie.storeId,
-			firstPartyDomain: cookie.firstPartyDomain
-		})
+		browser.cookies.remove(getCookieRemoveQuery(cookie))
 	);
 
 	return Promise.all(promises);
 }
 
-// Helper
+// Helper functions
+function getCookieQueryAll(tab){
+	let cookieQueryAll = {
+		url: tab.url,
+		storeId: tab.cookieStoreId
+	};
+	
+	console.log("browserName is", browserName);
+	if(browserName === "Firefox"){
+		cookieQueryAll.firstPartyDomain = null;
+	}
+	
+	console.log("cookieQueryAll", cookieQueryAll);
+	
+	return cookieQueryAll;
+}
+
+function getCookieRemoveQuery(cookie){
+	let cookieRemoveQuery = {
+		url: getCookieUrl(cookie),
+		name: cookie.name,
+		storeId: cookie.storeId
+	};
+
+	console.log("browserName is", browserName);
+	if(browserName === "Firefox"){
+		cookieRemoveQuery.firstPartyDomain = cookie.firstPartyDomain;
+	}
+
+	return cookieRemoveQuery;
+}
+
 function getCookieUrl(cookie) {
-    var cookieProtocol = (cookie.secure) ? 'https://' : 'http://';
+    let cookieProtocol = (cookie.secure) ? 'https://' : 'http://';
     return cookieProtocol + cookie.domain + cookie.path;
 }

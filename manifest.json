@@ -1,29 +1,29 @@
 {
-  "manifest_version": 2,
-  "description": "__MSG_extensionDescription__",
-  "homepage_url": "https://github.com/Smile4ever/Erase-Cookies-Now",
-  "author": "Geoffrey De Belie",
-  "name": "Erase Cookies Now",
-  "version": "0.1.1",
-  "default_locale": "en",
-  "permissions": ["cookies","<all_urls>", "activeTab", "browsingData"],
-  "browser_action": {
-    "browser_style": false,
-    "default_title": "__MSG_buttonTitle__",
-    "default_icon": {
-      "70": "icons/icon70.png"
-    }
-  },
-  "applications": {
+	"manifest_version": 2,
+	"description": "__MSG_extensionDescription__",
+	"homepage_url": "https://github.com/Smile4ever/Erase-Cookies-Now",
+	"author": "Geoffrey De Belie",
+	"name": "Erase Cookies Now",
+	"version": "0.2.0",
+	"default_locale": "en",
+	"background": {
+		"scripts": ["browser-polyfill.min.js", "background.js"]
+	},
+	"icons": {
+		"70": "icons/icon70.png"
+	},
+	"applications": {
 		"gecko": {
 			"id": "erase-cookies-now@itsafeature.org",
 			"strict_min_version": "59.0"
 		}
 	},
-  "icons": {
-    "70": "icons/icon70.png"
-  },
-  "background": {
-    "scripts": ["background.js"]
-  }
+	"permissions": ["cookies","<all_urls>", "activeTab", "browsingData"],
+	"browser_action": {
+		"browser_style": false,
+		"default_title": "__MSG_buttonTitle__",
+		"default_icon": {
+			"70": "icons/icon70.png"
+		}
+	}	
 }
