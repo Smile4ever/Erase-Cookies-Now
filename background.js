@@ -16,7 +16,7 @@ async function init(){
 	}
 	
 	// Events
-	browser.browserAction.onClicked.addListener(async (tab) => {
+	browser.action.onClicked.addListener(async (tab) => {
 		await deleteCookies(tab);
 		await browser.tabs.reload();
 		// Page was reloaded
@@ -45,13 +45,10 @@ function getCookieQueryAll(tab){
 		storeId: tab.cookieStoreId
 	};
 	
-	console.log("browserName is", browserName);
 	if(browserName === "Firefox"){
 		cookieQueryAll.firstPartyDomain = null;
 	}
-	
-	console.log("cookieQueryAll", cookieQueryAll);
-	
+		
 	return cookieQueryAll;
 }
 
@@ -62,7 +59,6 @@ function getCookieRemoveQuery(cookie){
 		storeId: cookie.storeId
 	};
 
-	console.log("browserName is", browserName);
 	if(browserName === "Firefox"){
 		cookieRemoveQuery.firstPartyDomain = cookie.firstPartyDomain;
 	}

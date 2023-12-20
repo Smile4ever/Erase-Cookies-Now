@@ -1,6 +1,13 @@
 CHANGELOG
 =========
 
+0.3.0 (2023-12-20)
+==================
+* Port to Manifest V3
+* Update build script and add to git repo
+* Remove console.log calls
+* Remove unnecessary permission browsingData
+
 0.2.0 (2020-04-27)
 ==================
 * Cleanup unnecessary permissions
